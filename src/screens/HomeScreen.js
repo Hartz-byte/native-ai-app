@@ -1,4 +1,11 @@
-import { Text, View, SafeAreaView, Image, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
 import {
   widthPercentageToDP as wp,
@@ -9,6 +16,11 @@ import { dummyMessages } from "../constants";
 
 const HomeScreen = () => {
   const [messages, setMessages] = useState(dummyMessages);
+  const [recording, setRecording] = useState(false);
+
+  const clear = () => {
+    setMessages([]);
+  };
 
   return (
     <View className="flex-1 bg-white">
@@ -87,6 +99,38 @@ const HomeScreen = () => {
         ) : (
           <Features />
         )}
+
+        {/* recording, clear and stop buttons */}
+        <View className="flex justify-center items-center mb-5">
+          {/* recording button */}
+          {recording ? (
+            <TouchableOpacity>
+              <Image
+                className="rounded-full"
+                source={require("../../assets/images/voiceLoading.gif")}
+                style={{ width: hp(10), height: hp(10) }}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity>
+              <Image
+                className="rounded-full"
+                source={require("../../assets/images/recordingIcon.png")}
+                style={{ width: hp(10), height: hp(10) }}
+              />
+            </TouchableOpacity>
+          )}
+
+          {/* clear button */}
+          {messages.length > 0 && (
+            <TouchableOpacity
+              onPress={clear}
+              className="bg-neutral-400 rounded-3xl p-2 absolute right-10"
+            >
+              <Text className="text-white font-semibold">Clear</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </SafeAreaView>
     </View>
   );
