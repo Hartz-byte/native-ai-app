@@ -17,9 +17,14 @@ import { dummyMessages } from "../constants";
 const HomeScreen = () => {
   const [messages, setMessages] = useState(dummyMessages);
   const [recording, setRecording] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
 
   const clear = () => {
     setMessages([]);
+  };
+
+  const stopSpeaking = () => {
+    setSpeaking(false);
   };
 
   return (
@@ -128,6 +133,16 @@ const HomeScreen = () => {
               className="bg-neutral-400 rounded-3xl p-2 absolute right-10"
             >
               <Text className="text-white font-semibold">Clear</Text>
+            </TouchableOpacity>
+          )}
+
+          {/* stop button */}
+          {speaking && (
+            <TouchableOpacity
+              onPress={stopSpeaking}
+              className="bg-red-400 rounded-3xl p-2 absolute left-10"
+            >
+              <Text className="text-white font-semibold">Stop</Text>
             </TouchableOpacity>
           )}
         </View>
